@@ -1,0 +1,125 @@
+*{box-sizing: border-box;}
+body {
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #FFE74C;
+  color:#212738;
+}
+
+.container{
+  width:80vw;
+  margin:0 auto;
+  text-align: center;
+}
+
+.header {
+    overflow: hidden;
+    background-color:#212738;
+    padding: 20px 10px;
+}
+
+.header a {
+    float: left;
+    color: #fefefe;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px; 
+    line-height: 25px;
+    border-radius: 4px;
+  }
+  
+  .header a.logo {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  
+  .header a:hover {
+    background-color: #303951;
+    color: #ffffff;
+  }
+  
+  .header a.active {
+    background-color: #ffe74c;
+    color: white;
+  }
+  
+  .header-right {
+    float: right;
+  }
+
+  .timer{
+    color:white;
+  }
+
+  .question{
+    margin:20px;
+  }
+
+  .questionBox{
+    display: none;
+  }
+
+  #btn-container{
+    position:flex;
+    margin:20px 10px;
+  }
+
+  button{
+    margin: .5vw;
+    width:15vw;
+    font-size:2vw;
+  }
+
+  #highscore-container{
+    display:none;
+    width:50vw;
+    margin: 1vh auto;
+    border-radius: 5px;
+    background-color: #f2d200;
+    padding: 20px;
+  }
+
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    width: 100%;
+    background-color: #ff5964;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #ff2e3c;
+  }
+
+  .form-element {
+    margin:1vh 2vw;
+  }
+
+  
+
+  
+  @media screen and (max-width: 500px) {
+    .header a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+    
+    .header-right {
+      float: none;
+    }
+  }
