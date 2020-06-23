@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Game</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -32,17 +33,17 @@
         <div id='highscore-container'>
             <form id='highscoreForm'>
                 <label class='form-element' for='fname'>First name:</label><br>
-                <input class='form-element' type='text' id='fname' name='fname' value='Lebron'> <br>
+                <input class='form-element' type='text' id='fname' name='fname' placeholder='Lebron'> <br>
                 <label class='form-element' for='lname'>Last name:</label><br>
-                <input class='form-element' type='text' id='lname' name='lname' value='James'> <br>
-                <input class='form-element' type='submit' value='Submit'>
+                <input class='form-element' type='text' id='lname' name='lname' placeholder='James'> <br>
+                <button id="submitBtn">Submit</button>
             </form>
         </div>
     </div>
 
     <script type="text/javascript" src="./scripts/questions.js"></script>
     <script type="text/javascript" src="./scripts/game.js"></script>
-    <script type="text/javascript" src="./scripts/scores.js"></script>
+    
 
 </body>
 

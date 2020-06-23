@@ -1,7 +1,7 @@
 *{box-sizing: border-box;}
 body {
   margin: auto;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Averia Serif Libre', cursive;
   background-color: #FFE74C;
   color:#212738;
 }
@@ -24,14 +24,15 @@ body {
     text-align: center;
     padding: 12px;
     text-decoration: none;
-    font-size: 18px; 
+    font-size: 5vw; 
     line-height: 25px;
     border-radius: 4px;
   }
   
   .header a.logo {
-    font-size: 25px;
+    font-size: 3vw;
     font-weight: bold;
+    float: left;
   }
   
   .header a:hover {
@@ -46,29 +47,38 @@ body {
   
   .header-right {
     float: right;
+    margin:10px;
   }
 
   .timer{
     color:white;
+    font-size:3vw;
+    margin-right:30px;
   }
 
-  .question{
+  #question{
     margin:20px;
+    font-size:3.5vw;
+  }
+
+  .game-discription {
+    font-size:2.5vw;
   }
 
   .questionBox{
     display: none;
   }
 
-  #btn-container{
-    position:flex;
+  #btn-container {
+    display: inline-flex !important;
+    flex-direction: column;
     margin:20px 10px;
   }
-
   button{
-    margin: .5vw;
-    width:15vw;
-    font-size:2vw;
+    margin: 1vw;
+    width:25vw;
+    font-size:3vw;
+    font-family: 'Averia Serif Libre', cursive;
   }
 
   #highscore-container{
@@ -109,9 +119,26 @@ body {
     margin:1vh 2vw;
   }
 
-  
+  .scoreEl {
+    margin:2vh 2vw;
+    font-size: 3vw;
+  }
 
-  
+  #highScores-container{
+    width:60vw;
+    margin: 5vh auto;
+    padding: 2vw;
+    border-width: 6px;
+    border-color: #1c2230;
+    border-style: solid;
+    background-color: #212738;
+    color: #ffe74c;
+  }
+
+  .game-title{
+    font-size: 5vw;
+  }
+ 
   @media screen and (max-width: 500px) {
     .header a {
       float: none;
@@ -120,6 +147,13 @@ body {
     }
     
     .header-right {
-      float: none;
+      float: right;
+    }
+    .header a.logo {
+      font-size: 25px;
+    }
+    .timer{
+      font-size:20px;
+      margin-right:20px;
     }
   }

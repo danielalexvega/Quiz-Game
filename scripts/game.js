@@ -10,33 +10,65 @@ const choiceB = document.querySelector("#choiceB");
 const choiceC = document.querySelector("#choiceC");
 const choiceD = document.querySelector("#choiceD");
 const highscoreForm = document.querySelector("#highscore-container");
-const fname = document.querySelector('#fname');
-const lname = document.querySelector('#lname');
+const submitBtn = document.querySelector('#submitBtn');
 
 
-var score = 0;
-var countdown = 500;
-var questionSet = [...questions];           // copy the question set
+var score;
+var countdown;
+var questionSet;           // copy the question set *this happens in resetGame();
 var questionId;                             // variable to choose random question from questionSet
 var question;                               // the random question choosen
-var count = 0;     
+var count;
 var timerId;                                // keep track of question count
-var highscores = [];                        // highscores are tracked in an array
+var highScores;                        // highscores are tracked in an array
+var playerNames;
+var userName;
+var playerId = 0;
 
-startBtnEl.addEventListener('click', startGame);
-questionBoxEl.addEventListener('click', checkAnswer);
 
-fname.addEventListener('submit', function(event) {
-    event.preventDefault();
-    console.log(event.target.value);
-})
+//first thing I need to do is load the highScores, load the names, and load the playerId
 
+function loadData() {
+    //load names into an array from local storage
+    if (localStorage.getItem('playerId') !== null) {
+        playerId = parseInt(localStorage.getItem('playerId'));
+    } 
+
+    if (localStorage.getItem('highScores') !== null) {
+        highScores = JSON.parse(localStorage.getItem('highScores'));
+    } else {
+        highscoreForm = [0, 0, 0];
+    }
+    if (localStorage.getItem('playerNames') !== null) {
+        playerNames = JSON.parse(localStorage.getItem('playerNames'));
+    } else {
+        playerNames = ['', '', ''];
+    }
+}
+
+loadData();
+
+startBtnEl.addEventListener('click', startGame);  //the button to start the game
+questionBoxEl.addEventListener('click', checkAnswer);  //the button to check answers
+highscoreForm.addEventListener('submit', function () { event.preventDefault(); });  
+submitBtn.addEventListener('click', validateForm);  //the button to submit a name
+
+//function to reset the game
+function resetGame() {
+    score = 0;
+    countdown = 500;
+    questionSet = [...questions];
+    count = 0;
+    userName = '';
+}
 
 function startGame() {
-    startBtnEl.setAttribute('style', 'display:none');
-    startTimer();
+    resetGame();
     renderNewQuestion();
     questionBoxEl.setAttribute('style', 'display:block');
+    btns.setAttribute("style", "display:block");
+    startTimer();
+    startBtnEl.setAttribute('style', 'display:none');
 }
 
 function startTimer() {
@@ -46,19 +78,19 @@ function startTimer() {
     }, 1000);
 }
 
+//when I'm done checking answers, I end the game
 function checkAnswer(event) {
     event.preventDefault();
-    
-    if(event.target.type === "submit"){
+
+    if (event.target.type === "submit") {
         if (event.target.textContent === question.answer) {
             //play sound
             score++;
         } else {
             //play sound
-            console.log(`incorrect on ${question.question}`)
-           countdown -= 10;
+            countdown -= 20;
         }
-        if(countdown < 0 || count !== questions.length){
+        if (countdown > 0 && count !== questions.length) {
             renderNewQuestion();
         } else {
             endGame();
@@ -66,9 +98,9 @@ function checkAnswer(event) {
     }
 }
 
-//render question
+//render question   *************** Check this ***************************
 function renderNewQuestion() {
-    questionBoxEl.setAttribute("style", "display:block");
+    //questionBoxEl.setAttribute("style", "display:block");     // I don't think I need this line
     count++;
     //pick a random question
     questionId = Math.floor(Math.random() * questionSet.length);
@@ -87,14 +119,12 @@ function renderNewQuestion() {
     choiceD.textContent = question.choices[3];
 }
 
-function endGame(){
-    clearInterval(timerId);
-    displayForm();
-    if(countdown !== 0) {
-        var highscoreForm = document.createElement("form");
-
-
-        questionEl.textContent = `Quiz Complete! You answered ${score} questions correctly in ${countdown + 1} seconds!`
+function endGame() {
+    clearInterval(timerId);   //stop the clock
+    toggleForm();             // add the form
+    countdown++;
+    if (countdown !== 0) {
+        questionEl.textContent = `Quiz Complete! You answered ${score} questions correctly in ${countdown} seconds!`;
     } else {
         questionEl.textContent = `Out of time. You answered ${score} questions correctly. Try again.`;
     }
@@ -102,11 +132,55 @@ function endGame(){
 
 }
 
-function displayForm() {
-    highscoreForm.setAttribute("style", "display:block");
+function toggleForm() {
+    if (highscoreForm.style.display === '' || highscoreForm.style.display === 'none') {
+        highscoreForm.style.display = 'block';
+    } else {
+        highscoreForm.style.display = 'none';
+    }
+}
+
+function validateForm(event) {
+    event.preventDefault();
+    let fn = document.forms['highscoreForm']['fname'].value;
+    let ln = document.forms['highscoreForm']['lname'].value;
+    userName = `${fn} ${ln}`;
+    console.log(userName);
+    //check if the user makes the top score
+    let userIndex = compareScores();
+    console.log(userIndex);
+    if(userIndex> -1) {
+        highScores.splice(userIndex, 0, countdown);
+        highScores.length = 3;
+        playerNames.splice(userIndex, 0, userName);
+        playerNames.length = 3;
+        storeUser();
+    }
+    
+    toggleForm();
+    window.location.href = 'highscores.html';
+}
+
+function storeUser() {
+    playerId++;
+    localStorage.setItem('playerId', playerId);
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    localStorage.setItem('playerNames', JSON.stringify(playerNames));
+    console.log('user stored');
 }
 
 
+//should return an index if it works, and -1 if it doesn't
+function compareScores() {
+    let userIndex = -1;
+    for(let i = 0; i < highScores.length; i++) {
+        if (countdown > highScores[i]) {
+            console.log("yup");
+            return i;
+        }
+    }
+    return userIndex;
+}
 
 
 function shuffle(array) {
