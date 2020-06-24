@@ -8,6 +8,8 @@ Every correct answer is counted, and every incorrect answer takes away 10 second
 
 Your score is saved in local storage, and if your score is in the top three, it will be saved in the high scores list with the user's name. 
 
+Check out the final project https://danielalexvega.github.io/Quiz-Game/ 
+
 This project was a homework assignment for the UT Coding Bootcamp. 
 
 
