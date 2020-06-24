@@ -123,6 +123,7 @@ function endGame() {
     clearInterval(timerId);   //stop the clock
     toggleForm();             // add the form
     countdown++;
+    timerEl.textContent = countdown;
     if (countdown !== 0) {
         questionEl.textContent = `Quiz Complete! You answered ${score} questions correctly in ${countdown} seconds!`;
     } else {

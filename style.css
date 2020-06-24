@@ -30,7 +30,7 @@ body {
   }
   
   .header a.logo {
-    font-size: 3vw;
+    font-size: 2vw;
     font-weight: bold;
     float: left;
   }
@@ -52,17 +52,17 @@ body {
 
   .timer{
     color:white;
-    font-size:3vw;
+    font-size:2.5vw;
     margin-right:30px;
   }
 
   #question{
     margin:20px;
-    font-size:3.5vw;
+    font-size:3vw;
   }
 
   .game-discription {
-    font-size:2.5vw;
+    font-size:2vw;
   }
 
   .questionBox{
@@ -70,14 +70,14 @@ body {
   }
 
   #btn-container {
-    display: inline-flex !important;
+    display: inline-flex;
     flex-direction: column;
     margin:20px 10px;
   }
   button{
-    margin: 1vw;
+    margin: .5vw;
     width:25vw;
-    font-size:3vw;
+    font-size:2.5vw;
     font-family: 'Averia Serif Libre', cursive;
   }
 
@@ -121,7 +121,7 @@ body {
 
   .scoreEl {
     margin:2vh 2vw;
-    font-size: 3vw;
+    font-size: 2.5vw;
   }
 
   #highScores-container{
@@ -136,7 +136,7 @@ body {
   }
 
   .game-title{
-    font-size: 5vw;
+    font-size: 4vw;
   }
  
   @media screen and (max-width: 500px) {
