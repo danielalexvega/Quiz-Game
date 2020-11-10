@@ -12,6 +12,11 @@ const choiceD = document.querySelector("#choiceD");
 const highscoreForm = document.querySelector("#highscore-container");
 const submitBtn = document.querySelector('#submitBtn');
 
+startBtnEl.addEventListener('click', startGame);  //the button to start the game
+questionBoxEl.addEventListener('click', checkAnswer);  //the button to check answers
+highscoreForm.addEventListener('submit', function () { event.preventDefault(); });
+submitBtn.addEventListener('click', validateForm);  //the button to submit a name
+
 
 var score;
 var countdown;
@@ -32,7 +37,7 @@ function loadData() {
     //load names into an array from local storage
     if (localStorage.getItem('playerId') !== null) {
         playerId = parseInt(localStorage.getItem('playerId'));
-    } 
+    }
 
     if (localStorage.getItem('highScores') !== null) {
         highScores = JSON.parse(localStorage.getItem('highScores'));
@@ -48,10 +53,7 @@ function loadData() {
 
 loadData();
 
-startBtnEl.addEventListener('click', startGame);  //the button to start the game
-questionBoxEl.addEventListener('click', checkAnswer);  //the button to check answers
-highscoreForm.addEventListener('submit', function () { event.preventDefault(); });  
-submitBtn.addEventListener('click', validateForm);  //the button to submit a name
+
 
 //function to reset the game
 function resetGame() {
@@ -74,6 +76,9 @@ function startGame() {
 function startTimer() {
     timerId = setInterval(function () {
         timerEl.textContent = countdown;
+        if (countdown === 0) {
+            endGame();
+        }
         countdown--;
     }, 1000);
 }
@@ -150,14 +155,14 @@ function validateForm(event) {
     //check if the user makes the top score
     let userIndex = compareScores();
     console.log(userIndex);
-    if(userIndex> -1) {
+    if (userIndex > -1) {
         highScores.splice(userIndex, 0, countdown);
         highScores.length = 3;
         playerNames.splice(userIndex, 0, userName);
         playerNames.length = 3;
         storeUser();
     }
-    
+
     toggleForm();
     window.location.href = 'highscores.html';
 }
@@ -170,11 +175,10 @@ function storeUser() {
     console.log('user stored');
 }
 
-
 //should return an index if it works, and -1 if it doesn't
 function compareScores() {
     let userIndex = -1;
-    for(let i = 0; i < highScores.length; i++) {
+    for (let i = 0; i < highScores.length; i++) {
         if (countdown > highScores[i]) {
             console.log("yup");
             return i;
